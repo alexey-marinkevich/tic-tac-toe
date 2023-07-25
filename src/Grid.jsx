@@ -1,4 +1,27 @@
 const Grid = () => {
+  class Player {
+    constructor(symbol) {
+      this.symbol = symbol;
+      this.score = 0;
+      this.currentCombination = [];
+    }
+
+    select(id) {
+      if (!occupiedSlots.includes(id)) {
+        this.currentCombination.push(id);
+        this.currentCombination.sort((a, b) => a - b);
+        console.log(this.currentCombination);
+        occupiedSlots.push(id);
+
+        const element = document.getElementById(id);
+        element.innerHTML = this.symbol;
+      }
+    }
+
+    addScore() {
+      this.score += 1;
+    }
+  }
   return (
     <div
       className="grid grid-cols-3 text-center
