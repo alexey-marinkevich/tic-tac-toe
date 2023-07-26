@@ -1,4 +1,17 @@
 const Grid = () => {
+  const winCombinations = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [1, 3, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+    [1, 5, 9],
+    [7, 5, 3],
+  ];
+
+  let occupiedSlots = [];
+
   class Player {
     constructor(symbol) {
       this.symbol = symbol;
