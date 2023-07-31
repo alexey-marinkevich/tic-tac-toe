@@ -35,6 +35,15 @@ const Grid = () => {
       this.score += 1;
     }
   }
+
+  const cleanCells = (ids) => {
+    ids.forEach((id) => {
+      const cell = document.getElementById(id);
+      if (cell) {
+        cell.textContent = '';
+      }
+    });
+  };
   return (
     <div
       className="grid grid-cols-3 text-center
