@@ -17,6 +17,7 @@ const Grid = () => {
 
         const element = document.getElementById(idToNum);
         element.innerHTML = this.symbol;
+        changeActivePlayer();
       }
     }
 
@@ -79,7 +80,6 @@ const Grid = () => {
   const onClickAction = (id) => {
     if (activePlayer === 'cross') {
       cross.select(id);
-      changeActivePlayer();
       const crossWon = cross.checkWinCombination();
 
       if (crossWon) {
@@ -102,7 +102,6 @@ const Grid = () => {
       );
       return resetLevel();
     }
-    changeActivePlayer();
     return;
   };
 
