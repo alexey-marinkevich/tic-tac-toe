@@ -1,5 +1,6 @@
 const Grid = () => {
   let occupiedSlots = [];
+  let isCross = true;
 
   class Player {
     constructor(symbol) {
@@ -65,20 +66,16 @@ const Grid = () => {
     cleanCells(occupiedSlots);
 
     occupiedSlots = [];
-    activePlayer = 'cross';
+    isCross = true;
   };
 
   const cross = new Player('x');
   const circle = new Player('o');
-  let activePlayer = 'cross';
 
-  const changeActivePlayer = () =>
-    activePlayer === 'cross'
-      ? (activePlayer = 'circle')
-      : (activePlayer = 'cross');
+  const changeActivePlayer = () => (isCross = !isCross);
 
   const onClickAction = (id) => {
-    if (activePlayer === 'cross') {
+    if (isCross) {
       cross.select(id);
       const crossWon = cross.checkWinCombination();
 
