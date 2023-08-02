@@ -48,12 +48,9 @@ const Grid = () => {
       ];
 
       for (const winCombination of winCombinations) {
-        const isWinCombinationIncluded = winCombination.every((element) =>
+        return winCombination.every((element) =>
           this.currentCombination.includes(element)
         );
-        if (isWinCombinationIncluded) {
-          return true;
-        }
       }
       return false;
     }
