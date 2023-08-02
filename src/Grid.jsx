@@ -7,7 +7,7 @@ const Grid = () => {
     [2, 5, 8],
     [3, 6, 9],
     [1, 5, 9],
-    [7, 5, 3],
+    [3, 5, 7],
   ];
 
   let occupiedSlots = [];
@@ -44,6 +44,60 @@ const Grid = () => {
       }
     });
   };
+
+  const resetLevel = () => {
+    cross.currentCombination = [];
+    circle.currentCombination = [];
+
+    cleanCells(occupiedSlots);
+
+    occupiedSlots = [];
+    activePlayer = 'cross';
+  };
+
+  const cross = new Player('x');
+  const circle = new Player('o');
+  let activePlayer = 'cross';
+
+  const changeActivePlayer = () =>
+    activePlayer === 'cross'
+      ? (activePlayer = 'circle')
+      : (activePlayer = 'cross');
+
+  const onClickAction = (id) => {
+    if (activePlayer === 'cross') {
+      cross.select(id);
+      changeActivePlayer();
+      const crossWon = winCombinations.some(
+        (arr) => arr.toString() === cross.currentCombination.toString()
+      );
+
+      if (crossWon) {
+        cross.addScore();
+        alert(
+          `Player 1 Won! Total Score cross: ${cross.score} -  circle: ${circle.score}`
+        );
+        return resetLevel();
+      }
+
+      return;
+    }
+
+    circle.select(id);
+    const circleWon = winCombinations.some(
+      (arr) => arr.toString() === circle.currentCombination.toString()
+    );
+    if (circleWon) {
+      circle.addScore();
+      alert(
+        `Player 2 Won! Total Score cross: ${cross.score} -  circle: ${circle.score}`
+      );
+      return resetLevel();
+    }
+    changeActivePlayer();
+    return;
+  };
+
   return (
     <div
       className="grid grid-cols-3 text-center
