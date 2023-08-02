@@ -34,6 +34,29 @@ const Grid = () => {
     addScore() {
       this.score += 1;
     }
+
+    checkWinCombination() {
+      const winCombinations = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+        [1, 3, 7],
+        [2, 5, 8],
+        [3, 6, 9],
+        [1, 5, 9],
+        [3, 5, 7],
+      ];
+
+      for (const winCombination of winCombinations) {
+        const isWinCombinationIncluded = winCombination.every((element) =>
+          this.currentCombination.includes(element)
+        );
+        if (isWinCombinationIncluded) {
+          return true;
+        }
+      }
+      return false;
+    }
   }
 
   const cleanCells = (ids) => {
