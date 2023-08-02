@@ -1,15 +1,4 @@
 const Grid = () => {
-  const winCombinations = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-    [1, 3, 7],
-    [2, 5, 8],
-    [3, 6, 9],
-    [1, 5, 9],
-    [3, 5, 7],
-  ];
-
   let occupiedSlots = [];
 
   class Player {
@@ -20,13 +9,13 @@ const Grid = () => {
     }
 
     select(id) {
-      if (!occupiedSlots.includes(id)) {
-        this.currentCombination.push(id);
+      const idToNum = Number(id);
+      if (!occupiedSlots.includes(idToNum)) {
+        this.currentCombination.push(idToNum);
         this.currentCombination.sort((a, b) => a - b);
-        console.log(this.currentCombination);
-        occupiedSlots.push(id);
+        occupiedSlots.push(idToNum);
 
-        const element = document.getElementById(id);
+        const element = document.getElementById(idToNum);
         element.innerHTML = this.symbol;
       }
     }
@@ -40,7 +29,7 @@ const Grid = () => {
         [1, 2, 3],
         [4, 5, 6],
         [7, 8, 9],
-        [1, 3, 7],
+        [1, 4, 7],
         [2, 5, 8],
         [3, 6, 9],
         [1, 5, 9],
@@ -48,9 +37,12 @@ const Grid = () => {
       ];
 
       for (const winCombination of winCombinations) {
-        return winCombination.every((element) =>
+        const isWinCombinationIncluded = winCombination.every((element) =>
           this.currentCombination.includes(element)
         );
+        if (isWinCombinationIncluded) {
+          return true;
+        }
       }
       return false;
     }
@@ -88,9 +80,7 @@ const Grid = () => {
     if (activePlayer === 'cross') {
       cross.select(id);
       changeActivePlayer();
-      const crossWon = winCombinations.some(
-        (arr) => arr.toString() === cross.currentCombination.toString()
-      );
+      const crossWon = cross.checkWinCombination();
 
       if (crossWon) {
         cross.addScore();
@@ -104,9 +94,7 @@ const Grid = () => {
     }
 
     circle.select(id);
-    const circleWon = winCombinations.some(
-      (arr) => arr.toString() === circle.currentCombination.toString()
-    );
+    const circleWon = circle.checkWinCombination();
     if (circleWon) {
       circle.addScore();
       alert(
